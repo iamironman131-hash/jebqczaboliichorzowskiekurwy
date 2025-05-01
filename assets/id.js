@@ -115,7 +115,7 @@ function generatePesel(birthday, sex) {
 
 
 if (birthday) {
-   setData("pesel", "0" + generatePesel(birthday, sex));
+   setData("pesel", generatePesel(birthday, sex));
 }
 
   
