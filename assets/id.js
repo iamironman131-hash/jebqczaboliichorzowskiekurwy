@@ -115,7 +115,7 @@ function generatePesel(birthday, sex) {
 
 
 if (birthday) {
-   setData("pesel", generatePesel(birthday, sex))
+   setData("pesel", parseInt(generatePesel(birthday, sex)))
   }
   
   //const adjustedMonth = year >= 2000 ? 20 + month : month;
