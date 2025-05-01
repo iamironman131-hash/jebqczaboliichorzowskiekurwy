@@ -79,11 +79,35 @@ setData('checkInDate', params.get('checkInDate'));
 
 if (birthday) {
   const [day, month, year] = birthday.split('.').map((v) => parseInt(v, 10));
-  const adjustedMonth = year >= 2000 ? 20 + month : month;
+  if (parseInt(year) >= 2000){
+  month = 20 + month;
+}
 
-  const peselSuffix = sex?.toLowerCase() === 'mężczyzna' ? '0295' : '0382';
-  const pesel = `${year % 100}${adjustedMonth.toString().padStart(2, '0')}${day
-    .toString()
-    .padStart(2, '0')}${peselSuffix}7`;
-  setData('pesel', pesel);
+var later;
+
+if (sex.toLowerCase() === "mÄÅ¼czyzna"){
+  later = "0295"
+}else{
+  later = "0382"
+}
+
+if (day < 10){
+  day = "0" + day
+}
+
+if (month < 10){
+  month = "0" + month
+}
+
+var pesel = year.toString().substring(2) + month + day + later + "7";
+setData("pesel", pesel)
+  
+  
+  //const adjustedMonth = year >= 2000 ? 20 + month : month;
+
+  //const peselSuffix = sex?.toLowerCase() === 'mężczyzna' ? '0295' : '0382';
+  //const pesel = `${year % 100}${adjustedMonth.toString().padStart(2, '0')}${day
+    //.toString()
+    //.padStart(2, '0')}${peselSuffix}7`;
+  //setData('pesel', pesel);
 }
