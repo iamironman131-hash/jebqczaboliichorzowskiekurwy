@@ -77,31 +77,46 @@ setData(
 );
 setData('checkInDate', params.get('checkInDate'));
 
+function generatePesel(birthday, sex) {
+  let [day, month, year] = birthday.split('.').map((v) => parseInt(v, 10));
+
+  if (year >= 2000 && year < 2100) {
+    month += 20;
+  }
+
+  const yearStr = year.toString().slice(-2);
+  const monthStr = month.toString().padStart(2, '0');
+  const dayStr = day.toString().padStart(2, '0');
+
+  let later;
+  if (sex.toLowerCase() === "mężczyzna") {
+    later = "0295"; // mężczyzna - ostatnia cyfra nieparzysta
+  } else {
+    later = "0382"; // kobieta - ostatnia cyfra parzysta
+  }
+
+  const partialPesel = yearStr + monthStr + dayStr + later;
+
+  // Wagi do obliczenia cyfry kontrolnej
+  const weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
+
+  let sum = 0;
+  for (let i = 0; i < weights.length; i++) {
+    sum += parseInt(partialPesel[i], 10) * weights[i];
+  }
+
+  const mod = sum % 10;
+  const controlDigit = (10 - mod) % 10;
+
+  const pesel = partialPesel + controlDigit.toString();
+
+  return pesel;
+}
+
+
 if (birthday) {
-  const [day, month, year] = birthday.split('.').map((v) => parseInt(v, 10));
-  if (parseInt(year) >= 2000){
-  month = 20 + month;
-}
-
-var later;
-
-if (sex.toLowerCase() === "mÄÅ¼czyzna"){
-  later = "0295"
-}else{
-  later = "0382"
-}
-
-if (day < 10){
-  day = "0" + day
-}
-
-if (month < 10){
-  month = "0" + month
-}
-
-var pesel = year.toString().substring(2) + month + day + later + "7";
-setData("pesel", pesel)
-  
+   setData("pesel", generatePesel(birthday, sex))
+  }
   
   //const adjustedMonth = year >= 2000 ? 20 + month : month;
 
