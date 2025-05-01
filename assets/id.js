@@ -115,14 +115,7 @@ function generatePesel(birthday, sex) {
 
 
 if (birthday) {
-   setData("pesel", parseInt(generatePesel(birthday, sex)))
+   setData("pesel", parseInt(generatePesel(birthday, sex)));
 }
+
   
-  //const adjustedMonth = year >= 2000 ? 20 + month : month;
-
-  //const peselSuffix = sex?.toLowerCase() === 'mężczyzna' ? '0295' : '0382';
-  //const pesel = `${year % 100}${adjustedMonth.toString().padStart(2, '0')}${day
-    //.toString()
-    //.padStart(2, '0')}${peselSuffix}7`;
-  //setData('pesel', pesel);
-
