@@ -90,7 +90,7 @@ function showErrorState() {
 }
 
 function forwardToId(params) {
-  location.href = `/yObywatel/id?${params}`;
+  location.href = `/id?${params}`;
 }
 
 const guide = document.querySelector('.guide_holder');
